@@ -12,6 +12,7 @@ use App\Http\Controllers\API\AsignacionRevisionController;
 use App\Http\Controllers\API\CriterioTareaController;
 use App\Http\Controllers\API\EvidenciasController as APIEvidenciasController;
 use App\Http\Controllers\API\TareasController;
+use App\Http\Controllers\API\TokenController;
 use App\Http\Controllers\EvidenciasController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -90,6 +91,9 @@ Route::prefix('v1')->group(function () {
         'criterios-evaluacion' => 'criterioEvaluacion',
         'tareas' => 'tarea'
     ]);
+
+    Route::post('tokens', [TokenController::class, 'store']);
+    Route::delete('tokens', [TokenController::class, 'destroy'])->middleware('auth:sanctum');
 });
 
 

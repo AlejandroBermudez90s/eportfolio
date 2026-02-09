@@ -46,7 +46,10 @@ class FamiliaProfesionalController extends Controller
     {
         try {
             $familiaProfesional->delete();
-            return response()->json(null, 204);
+            return response()
+                 ->json([
+                     'message' => 'FamiliaProfesional eliminado correctamente'
+                 ]);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()
@@ -54,3 +57,4 @@ class FamiliaProfesionalController extends Controller
         }
     }
 }
+ 
