@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
-class CicloFormativoFactory extends Factory
+class ModuloFormativoFactory extends Factory
 {
     /**
      * The current password being used by the factory.
@@ -24,26 +24,34 @@ class CicloFormativoFactory extends Factory
      *
      *
      *
-     *
      * @return array<string, mixed>
      */
     public function definition(): array
     {
 
         /*
-            ''familia_profesional_id',
-            'nombre',
-            'codigo',
-            'grado',
-            'descripcion',
+
+        'ciclo_formativo_id',
+        'nombre',
+        'codigo',
+        'horas_totales',
+        'curso_escolar',
+        'centro',
+        'docente_id',
+        'descripcion',
+
         */
 
+
         return [
-            'familia_profesional_id' => $this->faker->word,
-            'nombre' => $this->faker->word,
-            'codigo' => $this->faker->word,
-            'grado' => $this->faker->word,
-            'descripcion' => $this->faker->sentence
+            'ciclo_formativo_id' => fake()->name(),
+            'nombre' => fake()->name(),
+            'codigo' => fake()->name(),
+            'horas_totales' => fake()->name(),
+            'curso_escolar' => fake()->name(),
+            'centro' => fake()->name(),
+            'docente_id' => fake()->name(),
+            'descripcion' => fake()->name()
         ];
     }
 

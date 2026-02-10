@@ -13,8 +13,7 @@ class FamiliaProfesional extends Model
 
     protected $fillable = [
         'nombre',
-        'descripcion',
         'codigo',
-        'imagen',
+        'descripcion',
     ];
 }

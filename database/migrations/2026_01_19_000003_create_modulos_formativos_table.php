@@ -14,19 +14,18 @@ return new class extends Migration
     Schema::create('modulos_formativos', function (Blueprint $table) {
         $table->id();
 
-        $table->foreignId('ciclo_formativo_id')
-              ->constrained('ciclos_formativos')
-              ->cascadeOnDelete();
+        $table->unsignedBigInteger('ciclo_formativo_id');
+            $table->foreign('ciclo_formativo_id')->references('id')->on('ciclos_formativos');
 
-        $table->string('nombre');
-        $table->string('codigo')->unique();
+        $table->string('nombre')->nullable();
+        $table->string('codigo')->unique()->nullable();
 
         $table->integer('horas_totales')->nullable();
         $table->string('curso_escolar')->nullable();
-        $table->string('centro')->nullable();
+        $table->string('centro')->nullable()->require();
 
-        // Relación con docentes (para la tabla users)
         $table->unsignedBigInteger('docente_id')->nullable();
+            $table->foreign('docente_id')->references('id')->on('users');
 
         $table->text('descripcion')->nullable();
 

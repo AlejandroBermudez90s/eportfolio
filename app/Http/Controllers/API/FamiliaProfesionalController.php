@@ -11,8 +11,14 @@ class FamiliaProfesionalController extends Controller
 {
     public function index(Request $request)
     {
+        $query = FamiliaProfesional::where('id', $request->id);
+
+        if ($query) {
+            $query->orWhere('nombre', 'like', '%' .$request->search . '%');
+        }
+
         return FamiliaProfesionalResource::collection(
-            FamiliaProfesional::orderBy(
+            $query->orderBy(
                 $request->sort ?? 'id',
                 $request->order ?? 'asc'
             )->paginate($request->per_page)
@@ -21,7 +27,13 @@ class FamiliaProfesionalController extends Controller
 
     public function store(Request $request)
     {
-        $data = json_decode($request->getContent(), true);
+        //$data = json_decode($request->getContent(), true);
+
+        $data = $request->validate([
+            'nombre' => 'required',
+            'codigo' => 'required|unique:familias_profesionales,codigo',
+            'descripcion' => 'required',
+        ]);
 
         $familia = FamiliaProfesional::create($data);
 
@@ -57,4 +69,3 @@ class FamiliaProfesionalController extends Controller
         }
     }
 }
- 

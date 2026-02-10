@@ -49,8 +49,10 @@ Route::prefix('v1')->group(function () {
             'ciclos-formativos' => 'cicloFormativo'
     ]);
 
-    Route::apiResource('ciclos-formativos.modulos-formativos', ModuloFormativoController::class)->parameters([
-            'modulos-formativos' => 'moduloFormativo'
+    Route::apiResource('ciclos-formativos.modulos-formativos', ModuloFormativoController::class)
+        ->parameters([
+            'modulos-formativos' => 'moduloFormativo',
+            'ciclos-formativos' => 'cicloFormativo'
     ]);
 
     Route::apiResource('evaluaciones', EvaluacionController::class)

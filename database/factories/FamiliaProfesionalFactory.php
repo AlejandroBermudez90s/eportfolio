@@ -37,10 +37,9 @@ class FamiliaProfesionalFactory extends Factory
         */
 
         return [
-            'nombre' => fake()->name(),
-            'descripcion' => fake()->name(),
-            'codigo' => fake()->name(),
-            'imagen' => fake()->name()
+            'nombre' => $this->faker->word,
+            'codigo' => $this->faker->unique()->word,
+            'descripcion' => $this->faker->paragraph
         ];
     }
 
