@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\CicloFormativo;
+use App\Models\User;
 use App\Policies\CicloFormativoPolicy;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Gate;
@@ -27,6 +28,13 @@ class AppServiceProvider extends ServiceProvider
             return config('app.frontend_url')."/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";
         });
 
-        Gate::policy(CicloFormativo::class, CicloFormativoPolicy::class);
+        Gate::before(function (User $user, string $ability) {
+
+            if ($user->esAdministrador($user)) {
+                return true;
+            }
+
+            return null;
+        });
     }
 }

@@ -12,7 +12,7 @@ class CicloFormativoController extends Controller
 {
     public function index(Request $request, $familiaId)
     {
-        $query = CicloFormativo::where('id', $request->id);
+        $query = CicloFormativo::where('id', $familiaId);
 
         if ($query) {
             $query->orWhere('nombre', 'like', '%' .$request->search . '%');
@@ -30,17 +30,13 @@ class CicloFormativoController extends Controller
     {
         //$data = json_decode($request->getContent(), true);
 
-        $valoresAceptados = ['basico', 'medio', 'superior'];
-
-        $data = [
-            'user_id' => Auth::user()->id
-        ];
+        abort_if ($request->user()->cannot('create', CicloFormativo::class), 403);
 
         $data = $request->validate([
             'nombre' => 'required',
             'codigo' => 'required|unique:ciclos_formativos,codigo',
-            'grado' => 'required',
-            'descripcion' => 'required',
+            'grado' => 'required|in:basico,medio,superior',
+            'descripcion' => 'required'
         ]);
 
         $data['familia_profesional_id'] = $familiaId;
@@ -61,6 +57,8 @@ class CicloFormativoController extends Controller
 
     public function update(Request $request, $familiaId, CicloFormativo $cicloFormativo)
     {
+        abort_if ($request->user()->cannot('update', $cicloFormativo), 403);
+
         if ($cicloFormativo->familia_profesional_id != $familiaId) {
             abort(404);
         }
@@ -73,8 +71,10 @@ class CicloFormativoController extends Controller
         return new CicloFormativoResource($cicloFormativo);
     }
 
-    public function destroy($familiaId, CicloFormativo $cicloFormativo)
+    public function destroy(Request $request, $familiaId, CicloFormativo $cicloFormativo)
     {
+        abort_if ($request->user()->cannot('delete', $cicloFormativo), 403);
+
         if ($cicloFormativo->familia_profesional_id != $familiaId) {
             abort(404);
         }

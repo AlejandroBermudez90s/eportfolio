@@ -52,4 +52,8 @@ class User extends Authenticatable
     {
         return $this->createToken(NewAccessToken::class);
     }
+
+    public function esAdministrador(User $user){
+        return $user->email === config('app.admin.email');
+    }
 }
