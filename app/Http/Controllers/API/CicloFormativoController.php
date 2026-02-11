@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CicloFormativoResource;
 use App\Models\CicloFormativo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CicloFormativoController extends Controller
 {
@@ -18,9 +19,10 @@ class CicloFormativoController extends Controller
         }
 
         return CicloFormativoResource::collection(
-            $query->where('familia_profesional_id', $familiaId)
-                ->orderBy($request->sort ?? 'id', $request->order ?? 'asc')
-                ->paginate($request->per_page)
+            $query->orderBy(
+                $request->sort ?? 'id',
+                $request->order ?? 'asc'
+            )->paginate($request->per_page)
         );
     }
 
@@ -28,9 +30,16 @@ class CicloFormativoController extends Controller
     {
         //$data = json_decode($request->getContent(), true);
 
+        $valoresAceptados = ['basico', 'medio', 'superior'];
+
+        $data = [
+            'user_id' => Auth::user()->id
+        ];
+
         $data = $request->validate([
             'nombre' => 'required',
-            'codigo' => 'required|unique:familias_profesionales,codigo',
+            'codigo' => 'required|unique:ciclos_formativos,codigo',
+            'grado' => 'required',
             'descripcion' => 'required',
         ]);
 
@@ -72,7 +81,10 @@ class CicloFormativoController extends Controller
 
         try {
             $cicloFormativo->delete();
-            return response()->json(null, 204);
+            return response()
+                 ->json([
+                     'message' => 'CicloFormativo eliminado correctamente'
+                 ]);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Error: ' . $e->getMessage()
