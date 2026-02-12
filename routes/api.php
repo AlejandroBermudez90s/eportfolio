@@ -23,9 +23,6 @@ use Tqdev\PhpCrudApi\Config\Config;
 
 Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
 
-    Route::apiResource('resultados_aprendizaje', ResultadoAprendizajeController::class)->parameters([
-        'resultados_aprendizaje' => 'resultadoAprendizaje'
-    ]);
 
     Route::apiResource('criterios_evaluacion', CriterioEvaluacionController::class)->parameters([
         'criterios_evaluacion' => 'criterioEvaluacion'
@@ -48,6 +45,11 @@ Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
         ->parameters([
             'modulos-formativos' => 'moduloFormativo',
             'ciclos-formativos' => 'cicloFormativo'
+    ]);
+
+    Route::apiResource('modulos-formativos.resultados-aprendizaje', ResultadoAprendizajeController::class)->parameters([
+        'modulos-formativos' => 'moduloFormativo',
+        'resultados_aprendizaje' => 'resultadoAprendizaje'
     ]);
 
     Route::apiResource('evaluaciones', EvaluacionController::class)

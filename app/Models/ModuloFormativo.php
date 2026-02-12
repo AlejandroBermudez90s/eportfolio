@@ -21,6 +21,6 @@ class ModuloFormativo extends Model
         'curso_escolar',
         'centro',
         'docente_id',
-        'descripcion',
+        'descripcion'
     ];
 }

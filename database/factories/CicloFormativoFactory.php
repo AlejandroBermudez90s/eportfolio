@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\FamiliaProfesional;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -39,11 +40,11 @@ class CicloFormativoFactory extends Factory
         */
 
         return [
-            'familia_profesional_id' => $this->faker->word,
-            'nombre' => $this->faker->word,
-            'codigo' => $this->faker->word,
-            'grado' => $this->faker->word,
-            'descripcion' => $this->faker->sentence
+            'familia_profesional_id' => FamiliaProfesional::factory(),
+            'nombre' => $this->faker->words(3, true),
+            'codigo' => $this->faker->unique()->regexify('[A-Z]{3}[0-9]{3}'),
+            'grado' => $this->faker->randomElement(['basico', 'medio', 'superior']),
+            'descripcion' => $this->faker->paragraph()
         ];
     }
 

@@ -18,12 +18,9 @@ class ResultadoAprendizaje extends Model
         'codigo',
         'descripcion',
         'peso_porcentaje',
-        'orden'
+        'orden',
+        'created_at',
+        'updated_at'
     ];
 
-    public function moduloFormativoId(): BelongsTo
-    {
-        return $this->belongsTo(ModuloFormativo::class, 'modulo_formativo_id');
-    }
 }
-

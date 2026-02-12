@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\CicloFormativo;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -44,14 +46,14 @@ class ModuloFormativoFactory extends Factory
 
 
         return [
-            'ciclo_formativo_id' => fake()->name(),
-            'nombre' => fake()->name(),
-            'codigo' => fake()->name(),
-            'horas_totales' => fake()->name(),
-            'curso_escolar' => fake()->name(),
-            'centro' => fake()->name(),
-            'docente_id' => fake()->name(),
-            'descripcion' => fake()->name()
+            'ciclo_formativo_id' => CicloFormativo::factory(),
+            'nombre' => $this->faker->words(3, true),
+            'codigo' => $this->faker->unique()->regexify('[A-Z]{3}[0-9]{3}'),
+            'horas_totales' => $this->faker->numberBetween(20, 200),
+            'curso_escolar' => $this->faker->words(3, true),
+            'centro' => $this->faker->words(3, true),
+            'docente_id' => User::factory(),
+            'descripcion' => $this->faker->paragraph()
         ];
     }
 
