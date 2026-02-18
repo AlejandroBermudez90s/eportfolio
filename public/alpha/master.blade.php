@@ -10,8 +10,10 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="views/alpha/assets/css/main.css" />
+        <link rel="stylesheet" href="{{ asset('css/flash-messages.css') }}">
 	</head>
 	<body class="landing is-preload">
+
 		<div id="page-wrapper">
 
 			<!-- Header -->
