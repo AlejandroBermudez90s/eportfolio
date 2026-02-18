@@ -21,17 +21,14 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
+        Model::unguard();
+        Schema::disableForeignKeyConstraints();
+
         User::factory()->create([
             'name' => 'Test User',
             'email' => config('app.admin.email', 'test@example.com'),
             'password' => config('app.admin.password', 'password'),
         ]);
-
-
-        Model::unguard();
-        Schema::disableForeignKeyConstraints();
-
-        // llamadas a otros ficheros de seed
 
         $this->call(FamiliasProfesionalesTableSeeder::class);
 
@@ -54,6 +51,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ComentariosTableSeeder::class);
 
         $this->call(EvaluacionesTableSeeder::class);
+
+        $this->call(SkillSeeder::class);
 
         Model::reguard();
 
